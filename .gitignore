@@ -1,19 +1,18 @@
 .DS_Store
-sources/__pycache__/
-sources/cpi_to_mdp/__pycache__/
-models/test*.*
-
 .idea/
 
+sources/__pycache__/
+sources/cpi_to_mdp/__pycache__/
+
 CPIs/
-
+models/test*.*
 models/current_benchmark.nm
-
 models/current_benchmark.pctl
 
 benchmarks.sqlite
-
 benchmark_output.log
 
-!CPIs/test_loop1.cpi
 sources/env.py
+
+/prism-4.8.1-mac64-arm/
+/prism-4.8.1-linux64-x86/
