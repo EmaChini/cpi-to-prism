@@ -2,7 +2,7 @@ import datetime
 import json
 
 from sources.refinements import refine_bounds
-from telegram.telegram_bot import send_telegram_message
+from experiments.telegram.telegram_bot import send_telegram_message
 
 
 def single_execution(cursor, conn, x, y, w, bundle):

@@ -4,7 +4,6 @@ import graphviz
 import json
 import re
 from datetime import datetime
-
 from env import PRISM_PATH
 
 
