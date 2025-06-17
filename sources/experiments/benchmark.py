@@ -3,9 +3,10 @@ import signal
 import sys
 import time
 from datetime import datetime
-from read import read_cpi_bundles
-from sources.experiment import single_execution
-from sources.telegram.telegram_bot import send_telegram_message
+
+from experiments.etl.read import read_cpi_bundles
+from experiments.experiment import single_execution
+from experiments.telegram.telegram_bot import send_telegram_message
 
 BENCHMARKS_DB = 'benchmarks.sqlite'
 LOG_FILENAME = 'benchmark_output.log'

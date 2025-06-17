@@ -1,7 +1,7 @@
 import json
 import os
-from cpi_to_mdp.cpitospin import CPIToSPINConverter
-from cpi_to_mdp.process_to_mdp import cpi_to_mdp
+from cpi_to_spin.cpitospin import CPIToSPINConverter
+from process_to_prism import cpi_to_mdp
 
 
 def cpi_to_model(filename):

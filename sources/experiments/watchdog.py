@@ -7,8 +7,8 @@ import time
 import subprocess
 import sqlite3
 from datetime import datetime
-from sources.benchmark import BENCHMARKS_DB, LOG_FILENAME
-from sources.telegram.telegram_bot import send_telegram_message, TELEGRAM_BOT_TOKEN, listen_for_messages
+from experiments.benchmark import BENCHMARKS_DB, LOG_FILENAME
+from experiments.telegram.telegram_bot import send_telegram_message, TELEGRAM_BOT_TOKEN, listen_for_messages
 
 
 def clean_stuck_rows(current_threshold):

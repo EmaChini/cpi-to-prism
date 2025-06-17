@@ -1,5 +1,5 @@
 import graphviz
-from cpi_to_mdp.translation import SPINtoPRISM, TransitionType
+from spin_to_prism_model.translation import SPINtoPRISM, TransitionType
 
 
 class CPIToSPINConverter:
