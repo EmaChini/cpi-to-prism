@@ -2,7 +2,7 @@
 .idea/
 
 sources/__pycache__/
-sources/cpi_to_mdp/__pycache__/
+sources/spin_to_prism_model/__pycache__/
 
 CPIs/
 models/test*.*

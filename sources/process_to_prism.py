@@ -1,7 +1,7 @@
-from cpi_to_mdp.formula_generators import generate_step_ready_formula, generate_closing_pending_formula, \
+from spin_to_prism_model.formula_generators import generate_step_ready_formula, generate_closing_pending_formula, \
     generate_ready_pending_formula, generate_active_ready_pending_formula, generate_active_closing_pending_formula
-from cpi_to_mdp.module_generators import generate_module
-from cpi_to_mdp.rewards_generators import generate_rewards, integrate_rewards_to_mdp
+from spin_to_prism_model.module_generators import generate_module
+from spin_to_prism_model.rewards_generators import generate_rewards, integrate_rewards_to_mdp
 
 
 def cpi_to_mdp(root_dict):

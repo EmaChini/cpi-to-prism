@@ -1,7 +1,7 @@
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, HTTPException
 import uvicorn
-from cpi_to_mdp.cpitospin import CPIToSPINConverter, create_cpi_visualization, create_spin_visualization
+from cpi_to_spin.cpitospin import CPIToSPINConverter, create_cpi_visualization, create_spin_visualization
 
 
 def run(port: int = 8001):

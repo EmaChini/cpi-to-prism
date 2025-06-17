@@ -1,7 +1,7 @@
 from typing import Dict, List
 import json
 import os
-from cpi_to_mdp.etl import cpi_to_model
+from cpi_to_prism_etl import cpi_to_model
 from sampler import sample_expected_impact
 from analysis import analyze_bounds
 
