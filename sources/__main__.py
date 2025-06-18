@@ -1,4 +1,4 @@
-import datetime
+import json
 import os
 import re
 import subprocess
@@ -64,13 +64,32 @@ def run(port: int = 8001):
 	async def run_prism_analysis(request: dict) -> dict:
 		cpi_dict = request.get("cpi_dict")
 		if cpi_dict is None:
-			raise HTTPException(status_code=400, detail="No cpi dict found")
+			raise HTTPException(
+				status_code=400, detail="No cpi dict found")
 
 		import uuid
 		process_name = f"tmp_{uuid.uuid4()}"
+
+		os.makedirs("models", exist_ok=True)
+		os.makedirs("CPIs", exist_ok=True)
+
 		model_path = os.path.join("models", f"{process_name}.nm")
 		states_path = os.path.join("models", f"{process_name}_states.csv")
 		trans_path = os.path.join("models", f"{process_name}_trans.tra")
+		cpi_path = os.path.join("CPIs", f"{process_name}.cpi")
+
+		try:
+			with open(cpi_path, 'w') as f:
+				json.dump(cpi_dict, f)
+
+			converter = CPIToSPINConverter()
+			spin_model = converter.convert_cpi_to_spin(cpi_dict)
+			prism_model = spin_model.generate_prism_model()
+
+			with open(model_path, 'w') as f:
+				f.write(prism_model)
+		except Exception as e:
+			raise HTTPException(status_code=500, detail=str(e))
 
 		# Run PRISM command
 		cmd = [os.path.abspath(PRISM_PATH) if PRISM_PATH else "prism",
@@ -82,7 +101,6 @@ def run(port: int = 8001):
 
 		cmd.append("-verbose")
 
-		print(cmd)
 		try:
 			result = subprocess.run(cmd,
 									capture_output=True,
@@ -94,30 +112,27 @@ def run(port: int = 8001):
 			# Extract information using regex
 			modules_match = re.search(r'Modules:\s+(.+?)\n', output)
 			variables_match = re.search(r'Variables:\s+(.+?)\n', output)
-			time_match = re.search(r'Time for model construction: (.+?) seconds', output)
 
 			states, transitions, rewards = load_prism_model(process_name)
 
-			compressed_dot = create_states_mdp(states, transitions, rewards)
+			mdp_dot = create_states_mdp(states, transitions, rewards)
 
 			# Compile information
 			return {
-				'timestamp': datetime.now().isoformat(),
 				'modules': modules_match.group(1).split() if modules_match else [],
 				'variables': variables_match.group(1).split() if variables_match else [],
 				'task_impacts': get_task_impacts(cpi_dict),
-				'model_build_time': float(time_match.group(1)) if time_match else None,
 				'command': ' '.join(cmd),
 				'prism_output': output,
-				"compressed_dot" : str(compressed_dot)
+				"mdp_dot": str(mdp_dot)
 			}
 
 		except Exception as e:
 			raise HTTPException(status_code=500, detail=str(e))
 
-		#except subprocess.CalledProcessError as e:
-		#	print(f"Error running PRISM: {e}")
-		#	print(f"PRISM output: {e.output}")
+		# except subprocess.CalledProcessError as e:
+		#   print(f"Error running PRISM: {e}")
+		#   print(f"PRISM output: {e.output}")
 
 	uvicorn.run(app, host="0.0.0.0", port=port)
 
