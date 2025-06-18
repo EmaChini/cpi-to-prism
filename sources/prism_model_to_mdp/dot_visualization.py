@@ -60,7 +60,7 @@ def add_choice(decision_combination, idx, idx_next):
 		f'"{idx_choice}" -> "{idx_next}";'
 	]
 
-def add_nature(decision_combination, idx, idx_next, probability):
+def add_nature_loop(decision_combination, idx, idx_next, probability):
 	idx_nature = f'{idx}'
 	label_lines = []
 	for k, v in decision_combination.items():
@@ -73,19 +73,4 @@ def add_nature(decision_combination, idx, idx_next, probability):
 		f'"{idx_nature}" [label="{{{label}}}" , style="filled", fillcolor="lightgreen", shape="ellipse"];',
 		f'"{idx}" -> "{idx_nature}" [label = "{probability}"];',
 		f'"{idx_nature}" -> "{idx_next}";'
-	]
-
-def add_loop(decision_combination, idx, idx_next, probability):
-	idx_loop = f'{idx}'
-	label_lines = []
-	for k, v in decision_combination.items():
-		label_lines.append(f'{k}: {v}')
-		idx_loop += f' {k}{v}'
-
-	label = ',\n'.join(label_lines)
-	print("uscita loop: ", f'"{idx_loop}" -> "{idx_next}";')
-	return [
-		f'"{idx_loop}" [label="{{{label}}}" , style="filled", fillcolor="lightgreen", shape="ellipse"];',
-		f'"{idx}" -> "{idx_loop}"  [label = "{probability}"];',
-		f'"{idx_loop}" -> "{idx_next}";'
 	]

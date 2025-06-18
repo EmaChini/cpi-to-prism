@@ -1,7 +1,6 @@
 from collections import defaultdict
 import pandas as pd
 import re
-from itertools import product
 
 def load_prism_model(process_name: str):
 	states_filenames = f"models/{process_name}_states.csv"
@@ -154,9 +153,3 @@ def find_exclusive_gateways(places:dict, next_places:dict):
 
 	return dict(choices), dict(natures), dict(loops)
 
-def decisions_combinations(exclusive_gateways):
-	all_combinations = list(product(*exclusive_gateways.values()))
-	return [
-		dict(zip(exclusive_gateways.keys(), combination))
-		for combination in all_combinations
-	]
