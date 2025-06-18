@@ -31,21 +31,23 @@ def run(port: int = 8001):
 			raise HTTPException(status_code=400, detail="No cpi dict found")
 
 		try:
+			print(cpi_dict)
 			cpi_dot = create_cpi_visualization(cpi_dict)
+			#cpi_dot = cpi_dict
+			print(cpi_dot)
+			#converter = CPIToSPINConverter()
+			#spin_model = converter.convert_cpi_to_spin(cpi_dict)
+			#spin_dot = create_spin_visualization(spin_model)
 
-			converter = CPIToSPINConverter()
-			spin_model = converter.convert_cpi_to_spin(cpi_dict)
-			spin_dot = create_spin_visualization(spin_model)
-
-			prism_model = spin_model.generate_prism_model()
+			#prism_model = spin_model.generate_prism_model()
 
 		except Exception as e:
 			raise HTTPException(status_code=400, detail=str(e))
 
 		try:
-			return { "cpi_dot": cpi_dot,
-					 "spin_dot": spin_dot,
-					 "prism_model": prism_model
+			return { "cpi_dot": cpi_dot
+					 #"spin_dot": spin_dot,
+					 #"prism_model": prism_model
 			}
 		except Exception as e:
 			raise HTTPException(status_code=500, detail=str(e))

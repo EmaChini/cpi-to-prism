@@ -37,4 +37,4 @@ COPY . /app
 
 EXPOSE 8888
 
-CMD ["sh", "-c", "jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root --IdentityProvider.token=''"]
+CMD sh -c "jupyter notebook --notebook-dir=/app --ip=0.0.0.0 --port=8888 --no-browser --allow-root --IdentityProvider.token='' & exec python3 sources"
