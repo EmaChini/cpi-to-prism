@@ -54,7 +54,7 @@ def add_choice(decision_combination, idx, idx_next):
 
 	label = ',\n'.join(label_lines)
 
-	return [
+	return idx_choice, [
 		f'"{idx_choice}" [label="{{{label}}}" , style="filled", fillcolor="lightcoral", shape="ellipse"];',
 		f'"{idx}" -> "{idx_choice}";',
 		f'"{idx_choice}" -> "{idx_next}";'
@@ -69,7 +69,7 @@ def add_nature(decision_combination, idx, idx_next, probability):
 
 	label = ',\n'.join(label_lines)
 
-	return [
+	return idx_nature, [
 		f'"{idx_nature}" [label="{{{label}}}" , style="filled", fillcolor="lightgreen", shape="ellipse"];',
 		f'"{idx}" -> "{idx_nature}" [label = "{probability}"];',
 		f'"{idx_nature}" -> "{idx_next}";'
